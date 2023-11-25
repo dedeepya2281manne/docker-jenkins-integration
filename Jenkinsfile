@@ -1,9 +1,16 @@
 pipeline{
   agent any
   stages{
-    stage('first stage'){
+    stage('Docker build'){
       steps{
-        echo "Hi"
+        sh 'docker build -t dedeepya02/docker-jenkins-integration:latest .'
+      }
+    }
+    stage('Docker push'){
+      steps{
+        withCredentials([usernamePassword(credentialsId: '56a9b4a5-2c17-4853-9214-9be7e473c6ab', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+        	sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+          sh 'docker push dedeepya02/docker-jenkins-integration:latest'
       }
     }
   }
