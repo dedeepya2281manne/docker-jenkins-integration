@@ -5,7 +5,8 @@ pipeline{
     }
   }
   stages{
-    stage(){
+    stage('first stage'){
+      echo "Hi"
     }
   }
 }
