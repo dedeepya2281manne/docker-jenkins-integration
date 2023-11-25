@@ -1,6 +1,14 @@
 pipeline{
   agent any
+  tools{
+    maven 'maven-3.6.3'
+  }
   stages{
+    stage('Maven build'){
+      steps{
+        sh 'mvn clean package'
+      }
+    }
     stage('Docker build'){
       steps{
         sh 'docker build -t dedeepya02/docker-jenkins-integration:latest .'
